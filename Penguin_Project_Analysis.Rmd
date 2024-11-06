@@ -1,0 +1,69 @@
+
+library(tidyverse)
+library(here)
+library(palmerpenguins)
+library(janitor)
+
+
+#load libraries
+here()
+
+#shows first 6 rows
+head(penguins_raw)
+
+#Show column names
+colnames(penguins_raw)
+
+#Save data using csv. Here says says the data under data subfolder and name it penguins.raw.csv. Here means we don't have to specifiy the actual folder names on laptop means anyone can run it
+write.csv(penguins_raw, here("data","penguins.raw.csv"))
+
+#Remove useless columns to clean data. Select finds column name called comments and hyphen means get rid of it. If there was no hyphen it would get rid of all the col names except for the one specified
+colnames(penguins_raw)
+penguins_raw <- select(penguins_raw, -Comments)
+colnames(penguins_raw)
+
+#Can also get rid of 2 columns called delta using starts_with() funct.
+penguins_raw <- select(penguins_raw, -starts_with("Delta"))
+colnames(penguins_raw)
+
+#SIDE NOTE: If we need to reload the raw safe copy of the data in case of mistake we can reupload the csv master copy straight up
+penguins_raw<-read.csv(here("data","penguins.raw.csv"))
+colnames(penguins_raw)
+
+#Can use piping where we want to clean data, create new variable without overwriting data
+
+#can use piping (%>% - means"do the following and then") to remove comments/delta columns 
+penguins_clean <- penguins_raw %>%
+select(-Comments)%>%
+select(-starts_with("Delta"))
+clean_names()
+
+colnames(penguins_clean)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
